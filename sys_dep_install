@@ -1,0 +1,88 @@
+#!/bin/bash
+
+# make
+sudo apt-get install cmake
+
+# clang
+sudo apt-get install clang
+
+# libraries
+sudo apt-get install libimobiledevice-dev -y
+sudo apt-get install libopenblas-dev
+
+# GPU drivers
+sudo add-apt-repository ppa:graphics-drivers/ppa -y
+sudo apt-get update
+sudo ubuntu-drivers autoinstall -y
+
+# Python environment
+echo "Python Environment"
+
+sudo apt-get install python-pip -y
+sudo apt-get install virtualenv -y
+sudo apt-get install python-pandas -y
+
+export TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.11.0rc0-cp27-none-linux_x86_64.whl
+pip install --ignore-installed --upgrade $TF_BINARY_URL
+
+# LaTeX
+echo "Install LaTeX"
+
+sudo apt-get install texlive-latex-recommended -y
+sudo apt-get install latexmk -y
+sudo apt-get install texlive-publishers -y
+sudo apt-get install latex-cjk-all -y
+
+# Pandoc
+
+echo "Install Pandoc"
+sudo apt-get install pandoc -y
+
+# Julia
+echo "Install Julia"
+
+sudo add-apt-repository ppa:staticfloat/juliareleases -y
+sudo add-apt-repository ppa:staticfloat/julia-deps -y
+sudo apt-get update
+sudo apt-get install julia -y
+julia -e 'Pkg.add()'
+# Themes
+
+echo "Install Themes"
+
+sudo add-apt-repository ppa:numix/ppa -y
+sudo apt-get update
+sudo apt-get install numix* -y
+sudo apt-get update
+sudo apt-get install numix* -y
+sudo apt-get install unity-tweak-tool -y
+
+# fonts
+echo "Install Monaco Font"
+
+URL="https://github.com/todylu/monaco.ttf/blob/master/monaco.ttf?raw=true"
+FILENAME=${URL##*/}
+FONT_DIR=/usr/share/fonts/truetype/custom/
+
+echo $FILENAME
+echo $FONT_DIR
+sudo mkdir -p $FONT_DIR
+sudo wget -c $URL
+sudo mv $FILENAME $FONT_DIR
+sudo fc-cache -f -v
+
+# sublime text 3
+sudo add-apt-repository ppa:webupd8team/sublime-text-3 -y
+sudo apt-get update
+sudo apt-get install sublime-text-installer -y
+
+# atom
+wget https://github.com/atom/atom/releases/download/v1.11.1/atom-amd64.deb
+sudo dpkg -i atom-amd64.deb
+rm atom-amd64.deb
+
+
+
+# echo "Replacing Firefox with Chrome"
+# sudo apt-get install google-chrome-stable
+# sudo apt-get autoremove firefox
